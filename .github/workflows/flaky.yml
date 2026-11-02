@@ -1,0 +1,16 @@
+name: ci
+on:
+  push:
+  workflow_dispatch:
+jobs:
+  stable:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo ok
+  flaky-integration:
+    runs-on: ubuntu-latest
+    steps:
+      - name: fails about half the time
+        run: |
+          if [ $((RANDOM % 2)) -eq 0 ]; then echo "simulated flake"; exit 1; fi
+          echo passed
